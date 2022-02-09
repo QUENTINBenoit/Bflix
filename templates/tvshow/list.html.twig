@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie{% endblock %}
+
+{% block body %}
+
+ 
+            <ul>
+  {% for tvshowList in tvshows %}
+            <li>
+              {{tvshowList.title}}
+            </li>
+
+
+ {% endfor %}
+
+            </ul>
+
+
+{% endblock %}
