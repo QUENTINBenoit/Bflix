@@ -1,1 +1,1 @@
-## Projet Mini net flix 
+## Projet Mini Netflix
