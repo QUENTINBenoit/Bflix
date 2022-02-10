@@ -47,4 +47,43 @@ class TvshowRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+    /**
+     * Méthode retournant toutes les séries triées par ordre alphabétique
+     *
+     * @return void
+     */
+    public function findAllOrderAlpha()
+    {
+        $qb = $this->createQueryBuilder('tv'); //=> l'alias va faire référence à l'entité courante (TvShow)
+        $qb->orderBy('tv.title', 'ASC');       //=> je trie le résultat par title ascendant. 
+        $query = $qb->getQuery();              //=> je créer ma requête SQL 
+        return $query->execute();              //=> j'exécute et retourne le résultat sous forme d'un tableau d'objets de la classe TvShow
+    }
+
+    public function findWithDetails($id)
+    {
+
+
+        $qb = $this->createQueryBuilder('tv');
+        // Je cible la série demandée ($id)
+        $qb->where('tv.id = :id');
+        $qb->setParameter(':id', $id);
+        // Je créer mes jointure pour recupèrer les infons de autres entitée en une seule requete
+        // ici j'utilise un leftjoin car si j'ai un série qui n' pas de valaur associée, 
+        // je recupère quand même les infos de ma séries a la =/= de join qui est beaucoup plus strict:
+        // si pas de valeur dans une proprièter == un erreur 
+        $qb->leftJoin('tv.seasons', 'sais');
+        $qb->leftJoin('tv.characters', 'personnages');
+        $qb->leftJoin('tv.categories', 'categories');
+        $qb->leftJoin('sais.episodes', 'episodes');
+
+        // demmande de recuperer les infos des autres tables     
+        $qb->addSelect('sais, personnages, categories, episodes');
+        $query = $qb->getQuery();
+        \dd($query);
+        return $query->getOneOrNullResult();
+    }
 }
