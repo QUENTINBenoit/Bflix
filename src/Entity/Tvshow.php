@@ -39,9 +39,17 @@ class Tvshow
     #[ORM\OneToMany(mappedBy: 'seasons', targetEntity: Season::class)]
     private $seasons;
 
+    #[ORM\ManyToMany(targetEntity: Character::class, mappedBy: 'charaters')]
+    private $characters;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
+    private $categories;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,6 +166,60 @@ class Tvshow
             if ($season->getSeasons() === $this) {
                 $season->setSeasons(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->addCharater($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->removeElement($character)) {
+            $character->removeCharater($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeCategory($this);
         }
 
         return $this;
