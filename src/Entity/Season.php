@@ -25,6 +25,9 @@ class Season
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
+    #[ORM\ManyToOne(targetEntity: Tvshow::class, inversedBy: 'seasons')]
+    private $seasons;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Season
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSeasons(): ?Tvshow
+    {
+        return $this->seasons;
+    }
+
+    public function setSeasons(?Tvshow $seasons): self
+    {
+        $this->seasons = $seasons;
 
         return $this;
     }
