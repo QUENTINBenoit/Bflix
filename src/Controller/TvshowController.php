@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TvshowRepository;
-use Laminas\Code\Reflection\FunctionReflection;
+
 
 #[Route('/tvshow', name: 'tvshow_')]
 class TvshowController extends AbstractController
@@ -25,13 +25,23 @@ class TvshowController extends AbstractController
             'tvshows' => $TvshowRepository->findAllOrderAlpha(),
         ]);
     }
+
+    /**
+     * Détail d'une série en fonction de Id
+     *
+     * @param integer $id
+     * @param TvshowRepository $tvshowRepository
+     * @return Response
+     */
     #[Route('/{id}', name: 'details', requirements: ['id' => '\d+'],)]
+
     public function details(int $id, TvshowRepository $tvshowRepository): Response
     {
         $tvShows =  $tvshowRepository->findWithDetails($id);
-
+        \dump($tvShows);
         return $this->render('tvshow/details.html.twig', [
             'tvshow' => $tvShows,
+
         ]);
     }
 }

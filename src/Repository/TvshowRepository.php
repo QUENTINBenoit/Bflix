@@ -63,18 +63,26 @@ class TvshowRepository extends ServiceEntityRepository
         return $query->execute();              //=> j'exécute et retourne le résultat sous forme d'un tableau d'objets de la classe TvShow
     }
 
+
+
+
+
+    /**
+     * Méthode permettant de récupérer tous les détails d'une série
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function findWithDetails($id)
     {
-
-
         $qb = $this->createQueryBuilder('tv');
         // Je cible la série demandée ($id)
         $qb->where('tv.id = :id');
         $qb->setParameter(':id', $id);
-        // Je créer mes jointure pour recupèrer les infons de autres entitée en une seule requete
-        // ici j'utilise un leftjoin car si j'ai un série qui n' pas de valaur associée, 
-        // je recupère quand même les infos de ma séries a la =/= de join qui est beaucoup plus strict:
-        // si pas de valeur dans une proprièter == un erreur 
+        // je créer mes jointures pour récupérer les infos des autres entités en une seule requête
+        // ici j'utilise un leftjoin car si j'ai une série qui n'a pas de valeur associée, 
+        // je récupère quand même les infos de ma série a la =/= de join qui est beaucoup plus strict:
+        // si pas de valeur dans une propriété == une erreur 
         $qb->leftJoin('tv.seasons', 'sais');
         $qb->leftJoin('tv.characters', 'personnages');
         $qb->leftJoin('tv.categories', 'categories');
@@ -83,7 +91,6 @@ class TvshowRepository extends ServiceEntityRepository
         // demmande de recuperer les infos des autres tables     
         $qb->addSelect('sais, personnages, categories, episodes');
         $query = $qb->getQuery();
-        \dd($query);
         return $query->getOneOrNullResult();
     }
 }
