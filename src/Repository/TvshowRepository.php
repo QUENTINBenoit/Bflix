@@ -93,4 +93,23 @@ class TvshowRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
         return $query->getOneOrNullResult();
     }
+
+    /**
+     * Méthode permettant de retourner une série en fonction de son title 
+     *
+     * @param [type] $title
+     * @return void
+     */
+    public function findSearchByTitle($title)
+    {
+        // invocation de querryBuilder
+        $qb = $this->createQueryBuilder('tv');
+        $qb->where('tv.title LIKE :title');
+        $qb->setParameter(':title', "%$title%");
+
+        $query = $qb->getQuery();
+
+
+        return $query->getResult();
+    }
 }
