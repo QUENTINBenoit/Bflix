@@ -6,9 +6,10 @@ use App\Repository\TvshowRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: TvshowRepository::class)]
-class Tvshow
+class Tvshow implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,23 +37,32 @@ class Tvshow
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $udaptedAt;
 
-    #[ORM\OneToMany(mappedBy: 'seasons', targetEntity: Season::class)]
+    #[ORM\OneToMany(mappedBy: 'seasons', targetEntity: Season::class,)]
     private $seasons;
 
     #[ORM\ManyToMany(targetEntity: Character::class, mappedBy: 'charaters')]
     private $characters;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
-    private $categories;
+    // #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
+    //private $categories;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
-    public function __construct()
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'tvshows',)]
+    private $catgoriess;
+
+    public function __construct(string $title)
     {
         $this->seasons = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->title = $title;
+        $this->catgoriess = new ArrayCollection();
+    }
+    public function __toString(): string
+    {
+        return $this->seasons;
     }
 
     public function getId(): ?int
@@ -236,6 +246,33 @@ class Tvshow
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCatgoriess(): Collection
+    {
+        return $this->catgoriess;
+    }
+
+    public function addCatgoriess(Category $catgoriess): self
+    {
+        if (!$this->catgoriess->contains($catgoriess)) {
+            $this->catgoriess[] = $catgoriess;
+            $catgoriess->addTvshow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCatgoriess(Category $catgoriess): self
+    {
+        if ($this->catgoriess->removeElement($catgoriess)) {
+            $catgoriess->removeTvshow($this);
+        }
 
         return $this;
     }

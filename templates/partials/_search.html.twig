@@ -8,12 +8,33 @@
 		</div>
 	</section>
 
+	<section class="continer w-75 m-auto">
 
-	<ul>
-		{% for tvshow in tvshows %}
-			<li>
-				<a href="{{ path('tvshow_details', {id:tvshow.id}) }}">
-					{{tvshow.title}}</a>
-			</li>
-		{% endfor %}
-	</ul>
+
+		<ol class="list-group list-group-numbered  ">
+			{% for tvshow in tvshows %}
+				<li class="list-group-item d-flex justify-content-between align-items-start text-danger bg-light bg-gradient">
+					<div class="ms-2 me-auto">
+						<div class="fw-bold ">
+							<a href="{{ path('tvshow_details', {id:tvshow.id}) }}" class="text-success">
+								{{tvshow.title}}</a>
+
+						</div>
+						<p class="text-dark">
+							categorie :
+							{% for  ben in tvshow.catgoriess %}
+								<em class="badge rounded-pill bg-secondary mx-1">{{ ben.name}}</em>
+
+
+							{% endfor %}
+						</p>
+
+					</div>
+
+					<span class="badge bg-primary rounded-pill">{{tvshow.nbLikes}}</span>
+				</li>
+			{% endfor %}
+		</ol>
+
+
+	</section>

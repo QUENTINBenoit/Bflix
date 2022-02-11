@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TvshowRepository;
-
+use Stringable;
 
 #[Route('/tvshow', name: 'tvshow_')]
 class TvshowController extends AbstractController
@@ -20,10 +20,13 @@ class TvshowController extends AbstractController
      * @return Response
      */
     #[Route('/list', name: 'list')]
-    public function list(TvshowRepository $TvshowRepository): Response
+    public function list(TvshowRepository $TvshowRepository,): Response
     {
+        $tvshwolist = ($TvshowRepository->findAllOrderAlpha());
+
+
         return $this->render('tvshow/list.html.twig', [
-            'tvshows' => $TvshowRepository->findAllOrderAlpha(),
+            'tvshows' => $tvshwolist,
         ]);
     }
 

@@ -6,9 +6,10 @@ use App\Repository\SeasonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
-class Season
+class Season implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,6 +37,10 @@ class Season
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
+    }
+    public function __toString(): string
+    {
+        return $this->seasons;
     }
 
     public function getId(): ?int
