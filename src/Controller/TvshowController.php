@@ -39,19 +39,21 @@ class TvshowController extends AbstractController
     public function details(int $id, TvshowRepository $tvshowRepository, Tvshow $tvshow): Response
     {
         $tvShows =  $tvshowRepository->findWithDetails($id);
-        \dump($tvShows);
+        //  \dd($tvShows);
+
         if ($tvShows === null) {
             // On affichi une 404
             // Que l'on peut custumiser   ==> https://symfony.com/doc/current/controller/error_pages.html
             throw $this->createNotFoundException("cette série n'existe pas ");
         }
+        // return $this->redirectToRoute('tvshow_slugger', ['slug' => $tvshow->getSlug()], 301);
         return $this->redirectToRoute('tvshow_slugger', ['slug' => $tvshow->getSlug()], 301);
     }
 
 
 
     /**
-     *  Détail d'un série en focntion de son slug
+     *  Détail d'une série en fonction de son slug
      * @param Tvshow $tvshow
      * @return Response
      */
