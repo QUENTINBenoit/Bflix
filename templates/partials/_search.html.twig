@@ -13,7 +13,7 @@
 
 		<ol class="list-group list-group-numbered  ">
 			{% for tvshow in tvshows %}
-				<li class="list-group-item d-flex justify-content-between align-items-start text-danger bg-light bg-gradient">
+				<li class="d-flex justify-content-between align-items-start text-danger bg-light bg-gradient p-2 m-2">
 					<div class="ms-2 me-auto">
 						<div class="fw-bold ">
 							<a href="{{ path('tvshow_details', {id:tvshow.id}) }}" class="text-success">
@@ -24,14 +24,20 @@
 							categorie :
 							{% for  ben in tvshow.catgoriess %}
 								<em class="badge rounded-pill bg-secondary mx-1">{{ ben.name}}</em>
-
-
 							{% endfor %}
 						</p>
-
+						<p class="text-dark">
+							Personnages :
+							{% for  benux in tvshow.characters %}
+								<em class="badge rounded-pill bg-secondary mx-1">{{ benux.firstname }}__{{ benux.lastname}}
+								</em>
+							{% endfor %}
+						</p>
 					</div>
 
-					<span class="badge bg-primary rounded-pill">{{tvshow.nbLikes}}</span>
+					<span class="badge bg-primary rounded-pill m-2">
+						Likes :
+						{{tvshow.nbLikes}}</span>
 				</li>
 			{% endfor %}
 		</ol>
