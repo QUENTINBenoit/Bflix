@@ -85,7 +85,7 @@ class TvshowRepository extends ServiceEntityRepository
         // si pas de valeur dans une propriété == une erreur 
         $qb->leftJoin('tv.seasons', 'sais');
         $qb->leftJoin('tv.characters', 'personnages');
-        $qb->leftJoin('tv.categories', 'categories');
+        $qb->leftJoin('tv.catgoriess', 'categories');
         $qb->leftJoin('sais.episodes', 'episodes');
 
         // demmande de recuperer les infos des autres tables     
