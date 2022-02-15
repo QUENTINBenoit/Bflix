@@ -36,7 +36,7 @@ class TvshowController extends AbstractController
 
 
     /**
-     * Methode afichant le detail d'une serie
+     * Méthode affichant le détail d'une série
      *
      * @param Tvshow $tvshow
      * @return Response
@@ -52,7 +52,7 @@ class TvshowController extends AbstractController
 
 
     /**
-     * Undocumented function
+     * Méthode permettant d'ajouter une série 
      *
      * @param Request $request
      * @param ManagerRegistry $doctrine
@@ -68,8 +68,8 @@ class TvshowController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($tvshow);
             $em->flush();
-            // petit message flash pour indiquer la reussite de le creation de notre nouvelle serie
-            $this->addFlash('info', 'la serire ' . $tvshow->getTitle() . 'a bien été enregistré ');
+            // petit message flash pour indiquer la réussite de la création de notre nouvelle série
+            $this->addFlash('info', 'la série ' . $tvshow->getTitle() . 'a bien été enregistré ');
             // redirection a la liste des series parti administration 
             return $this->redirectToRoute('admin_tvshow_list');
         }

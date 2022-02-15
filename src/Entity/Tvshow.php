@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TvshowRepository::class)]
 class Tvshow implements Stringable
@@ -18,6 +19,7 @@ class Tvshow implements Stringable
     private $id;
 
     #[ORM\Column(type: 'string', length: 25)]
+    #[Assert\NotBlank(message: 'Meci de saisir un titre pour la série demandé')]
     private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
