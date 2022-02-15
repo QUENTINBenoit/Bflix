@@ -78,4 +78,8 @@ class TvshowController extends AbstractController
             'formView' => $form->createView(),
         ]);
     }
+    #[Route('/delete', name: 'delete')]
+    public function delete()
+    {
+    }
 }
