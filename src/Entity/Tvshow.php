@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TvshowRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -57,12 +58,14 @@ class Tvshow implements Stringable
         $this->seasons = new ArrayCollection();
         $this->characters = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->title = $title;
+        $this->publishedAt = new DateTime();
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
         $this->catgoriess = new ArrayCollection();
     }
     public function __toString(): string
     {
-        return $this->seasons;
+        return $this->title;
     }
 
     public function getId(): ?int

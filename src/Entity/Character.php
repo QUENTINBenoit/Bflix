@@ -6,10 +6,11 @@ use App\Repository\CharacterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
-class Character
+class Character implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,6 +38,10 @@ class Character
     public function __construct()
     {
         $this->charaters = new ArrayCollection();
+    }
+    public function __toString(): string
+    {
+        return $this->firstname;
     }
 
     public function getId(): ?int
