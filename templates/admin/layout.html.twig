@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+
+	<div class="container ">
+		<div class="row">
+			<aside class=" col-2">
+				<h2>Dashbord</h2>
+				<div class="list-group">
+					<a href="#" class="list-group-item list-group-item-action active" aria-current="true">Accueil</a>
+					<a href="{{ path('admin_tvshow_list') }}" class="list-group-item list-group-item-action">Séries</a>
+					<a href="#" class="list-group-item list-group-item-action">Categories</a>
+					<a href="#" class="list-group-item list-group-item-action">Personnages</a>
+
+				</div>
+			</aside>
+			<main class="col-10">
+
+				{% block content %}{% endblock %}
+			</main>
+		</div>
+	</div>
+
+
+{% endblock %}
