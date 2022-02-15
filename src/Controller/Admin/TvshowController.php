@@ -78,8 +78,14 @@ class TvshowController extends AbstractController
             'formView' => $form->createView(),
         ]);
     }
-    #[Route('/delete', name: 'delete')]
-    public function delete()
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(Tvshow $tvshow, ManagerRegistry $doctrine)
     {
+        $em = $doctrine->getManager();
+        $em->remove($tvshow);
+        $em->flush();
+        $this->addFlash('success', 'Serire supprimée avec succes');
+        return $this->redirectToRoute('admin_tvshow_list');
     }
 }
