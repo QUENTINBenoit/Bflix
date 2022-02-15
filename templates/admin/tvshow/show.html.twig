@@ -1,0 +1,49 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Serie :
+	{{tvshow.title}}
+{% endblock %}
+
+{% block content %}
+
+
+	<section class="py-5 text-center container">
+		<div class="row py-lg-5">
+			<div class="col-lg-6 col-md-8 mx-auto">
+				<h1 class="fw-light">{{tvshow.title}}</h1>
+				<img src="" alt="" height="400">
+				<p class="lead text-muted">
+					<a href="#">
+						{% for season in tvshow.seasons %}
+							<span class="badge bg-secondary">Saison
+								{{ season.seasonNumber}}</span>
+						{% endfor %}
+					</a>
+
+				</p>
+				<p class="lead text-muted">
+					Avec :
+					{% for personnage in tvshow.characters %}
+						<a href="#">{{ personnage.firstname}}{{ personnage.lastname}}</a>,
+					{% endfor %}
+					<br>
+					Categories :
+					{% for category in tvshow.catgoriess %}
+						{{ category.name}}
+					{% endfor %}
+				</p>
+			</div>
+			<div class="row ">
+				<a href="{{ path('admin_tvshow_list')}}" class="py-2">
+					<button type="button" class="btn btn-outline-success btn-sm ">Retour a la liste des series</button>
+				</a>
+				<a href="#" class="py-2">
+					<button type="button" class="btn btn-outline-primary btn-sm">Editer</button>
+				</a>
+				<a href="#" class="py-2">
+					<button type="button" class="btn btn-outline-danger btn-sm">Supprimer</button>
+				</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

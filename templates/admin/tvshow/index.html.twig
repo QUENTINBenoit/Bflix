@@ -24,7 +24,7 @@
 					<li class="d-flex justify-content-between align-items-start text-danger bg-light bg-gradient p-2 m-2">
 						<div class="ms-2 me-auto">
 							<div class="fw-bold ">
-								<a href="{{ path('tvshow_details', {id:tvshow.id}) }}" class="text-success">
+								<a href="{{ path('admin_tvshow_show', {id:tvshow.id}) }}" class="text-success">
 									{{tvshow.title}}</a>
 
 							</div>
@@ -44,14 +44,10 @@
 
 						</div>
 
-						<div class="d-flex flex-column">
-							<span class="badge bg-primary rounded-pill m-2">
-								Likes :
-								{{tvshow.nbLikes}}</span>
-							<a href="#">
-								<button type="button" class="btn btn-outline-danger btn-sm m-3">Supprimer</button>
-							</a>
-						</div>
+						<span class="badge bg-primary rounded-pill m-2">
+							Likes :
+							{{tvshow.nbLikes}}</span>
+
 
 					</li>
 
