@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Character;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,14 +23,14 @@ class CharactersType extends AbstractType
                 ])
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Prenom',
+                'label' => 'Nom',
                 'constraints' => new NotBlank([
                     'message' => 'Veuillez saisir un Prenom'
                 ])
             ])
             ->add(
                 'gender',
-                TextType::class,
+                ChoiceType::class,
                 [
                     'placeholder' => 'choisisser un genre',
                     'choices' => [
