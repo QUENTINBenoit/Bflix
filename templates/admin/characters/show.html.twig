@@ -1,0 +1,33 @@
+{% extends "admin/layout.html.twig" %}
+{% block content %}
+
+	<section class="text-center container">
+		<div class="row">
+			<div class="col-lg-6 col-md-8 mx-auto">
+				<h1 class="fw-light">{{character.firstname}}</h1>
+				<p>
+					<a href="#">Editer</a>
+					|
+					<a href="#">Supprimer</a>
+
+
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="py-5 bg-light">
+		<div class="container">
+			<p>
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum consequuntur nesciunt, facere obcaecati nam voluptates reiciendis sit quaerat recusandae fugit.
+			</p>
+		</div>
+		<div class="container">
+			<p>
+				<a href="{{ path('admin_characters_list') }}">Retour à l'accueil</a>
+			</p>
+		</div>
+	</div>
+
+
+{% endblock %}

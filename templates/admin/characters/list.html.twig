@@ -6,9 +6,7 @@
 {% endblock %}
 
 {% block content %}
-	<pre>
-	{{ dump(charactersList) }}
-</pre>
+
 	<div class="container">
 		<h1>Liste des personnages</h1>
 		<div class="example-wrapper">
@@ -17,7 +15,7 @@
 				{% for character in charactersList %}
 					<div class="p-1">
 						<li>
-							<a href="#">
+							<a href=" {{ path('admin_characters_show', {id:character.id} ) }}">
 								{{ character.firstname}}
 								{{ character.lastname}}</a>
 						</li>

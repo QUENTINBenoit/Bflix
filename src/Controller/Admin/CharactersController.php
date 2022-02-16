@@ -31,8 +31,8 @@ class CharactersController extends AbstractController
     #[Route('/{id}', name: 'show')]
     public function detailsCharacter(Character $character): Response
     {
-        //  \dd($character);
-        return $this->render('amdin/characters/show.html.twig', [
+        // \dd($character);
+        return $this->render('admin/characters/show.html.twig', [
             'character' => $character,
         ]);
     }
