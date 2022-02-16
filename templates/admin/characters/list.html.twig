@@ -1,0 +1,33 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}
+	Personnage |
+	{{parent()}}
+{% endblock %}
+
+{% block content %}
+	<pre>
+	{{ dump(charactersList) }}
+</pre>
+	<div class="container">
+		<h1>Liste des personnages</h1>
+		<div class="example-wrapper">
+			<ul>
+				<h3></h3>
+				{% for character in charactersList %}
+					<div class="p-1">
+						<li>
+							<a href="#">
+								{{ character.firstname}}
+								{{ character.lastname}}</a>
+						</li>
+					</div>
+
+				{% endfor %}
+			</ul>
+		</div>
+		<a href="#">
+			<button type="button" class="btn btn-outline-success btn-sm">Nouveau Personnage</button>
+		</a>
+	</div>
+{% endblock %}

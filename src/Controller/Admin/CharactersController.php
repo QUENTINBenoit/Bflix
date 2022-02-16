@@ -11,13 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharactersController extends AbstractController
 {
     #[Route('/admin/characters', name: 'admin_characters')]
-    public function list(CharacterRepository $characterRepository)
+    public function list(CharacterRepository $characterRepository): Response
     {
-        $characterList = $characterRepository->findAll();
-        dd($characterList);
 
-        return $this->render('admin/characters/index.html.twig', [
-            'controller_name' => 'CharactersController',
+
+        return $this->render('admin/characters/list.html.twig', [
+            'charactersList' => $characterRepository->findAll(),
         ]);
     }
 }
