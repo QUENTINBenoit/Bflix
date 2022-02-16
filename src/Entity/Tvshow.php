@@ -11,7 +11,7 @@ use Stringable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TvshowRepository::class)]
-class Tvshow implements Stringable
+class Tvshow
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -49,13 +49,13 @@ class Tvshow implements Stringable
     // #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
     //private $categories;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $slug;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'tvshows',)]
     private $catgoriess;
 
-    public function __construct(string $title)
+    public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->characters = new ArrayCollection();
@@ -65,10 +65,11 @@ class Tvshow implements Stringable
         $this->updatedAt = new DateTime();
         $this->catgoriess = new ArrayCollection();
     }
+    /*
     public function __toString(): string
     {
         return $this->title;
-    }
+    }*/
 
     public function getId(): ?int
     {

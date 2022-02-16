@@ -17,6 +17,7 @@ use App\Form\TvshowType;
 class TvshowController extends AbstractController
 {
 
+
     /**
      * Méthode affichant la liste des séries partie administration 
      *
@@ -26,9 +27,6 @@ class TvshowController extends AbstractController
     #[Route('/list', name: 'list')]
     public function index(TvshowRepository $tvshowRepository): Response
     {
-
-        $listSerie = $tvshowRepository->findAllOrderAlpha();
-        //  dd($listSerie);
         return $this->render('admin/tvshow/index.html.twig', [
             'tvshowadmin' => $tvshowRepository->findAllOrderAlpha(),
         ]);
@@ -61,10 +59,14 @@ class TvshowController extends AbstractController
     #[Route('/add', name: 'add')]
     public function add(Request $request, ManagerRegistry $doctrine)
     {
-        $tvshow = new Tvshow(Stringable::class);
+        $tvshow = new Tvshow();
+
         $form = $this->createForm(TvshowType::class, $tvshow);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $doctrine->getManager();
             $em->persist($tvshow);
             $em->flush();
@@ -79,6 +81,13 @@ class TvshowController extends AbstractController
         ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Tvshow $tvshow
+     * @param ManagerRegistry $doctrine
+     * @return void
+     */
     #[Route('/delete/{id}', name: 'delete')]
     public function delete(Tvshow $tvshow, ManagerRegistry $doctrine)
     {
@@ -87,5 +96,26 @@ class TvshowController extends AbstractController
         $em->flush();
         $this->addFlash('success', 'Serire supprimée avec succes');
         return $this->redirectToRoute('admin_tvshow_list');
+    }
+
+
+
+    #[Route('/edit/{id}', name: 'edit')]
+
+    public function edit(Tvshow $tvshow,  Request $request, ManagerRegistry $doctrine)
+    {
+
+        $form = $this->createForm(TvshowType::class, $tvshow);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $doctrine->getManager();
+            $em->flush();
+            $this->addFlash('success', 'la série ' . $tvshow->getTitle() . ' a bien été mise à jour');
+            return $this->redirectToRoute('admin_tvshow_show', ['id' => $tvshow->getId()]);
+        }
+        return $this->render('admin/tvshow/edit.html.twig', [
+            'formEdit' => $form->createView(),
+            'tvshow' => $tvshow
+        ]);
     }
 }

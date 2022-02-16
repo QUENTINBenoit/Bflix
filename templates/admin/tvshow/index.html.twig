@@ -5,58 +5,45 @@
 
 {% block content %}
 
-
-	<ul>
-		<section class="py-5 text-center container">
-			<div class="row py-lg-5">
-				<div class="col-lg-6 col-md-8 mx-auto">
-					<h1 class="fw-light">Administration des séries
-					</h1>
-				</div>
+	<section class="py-5 text-center container">
+		<div class="row py-lg-5">
+			<div class="col-lg-6 col-md-8 mx-auto">
+				<h1 class="fw-light">Administration des séries
+				</h1>
 			</div>
-		</section>
-
-		<section class="continer w-75 m-auto">
-
-
-			<ol class="list-group list-group-numbered  ">
-				{% for tvshow in tvshowadmin %}
-					<li class="d-flex justify-content-between align-items-start text-danger bg-light bg-gradient p-2 m-2">
-						<div class="ms-2 me-auto">
-							<div class="fw-bold ">
-								<a href="{{ path('admin_tvshow_show', {id:tvshow.id}) }}" class="text-success">
-									{{tvshow.title}}</a>
-
-							</div>
-							<p class="text-dark">
-								categorie :
-								{% for  categorie in tvshow.catgoriess %}
-									<em class="badge rounded-pill bg-secondary mx-1">{{ categorie.name}}</em>
-								{% endfor %}
-							</p>
-							<p class="text-dark">
-								Personnages :
-								{% for  character in tvshow.characters %}
-									<em class="badge rounded-pill bg-secondary mx-1">{{ character.firstname }}__{{ character.lastname}}
-									</em>
-								{% endfor %}
-							</p>
-
+		</div>
+	</section>
+	<section class="continer w-75 m-auto">
+		<ol class="list-group list-group-numbered  ">
+			{% for tvshow in tvshowadmin %}
+				<li class="d-flex justify-content-between align-items-start text-danger bg-light bg-gradient p-2 m-2">
+					<div class="ms-2 me-auto">
+						<div class="fw-bold ">
+							<a href="{{ path('admin_tvshow_show', {id:tvshow.id}) }}" class="text-success">
+								{{tvshow.title}}</a>
 						</div>
-
-						<span class="badge bg-primary rounded-pill m-2">
-							Likes :
-							{{tvshow.nbLikes}}</span>
-
-
-					</li>
-
-
-				{% endfor %}
-			</ol>
-			<a href="#">
-				<button type="button" class="btn btn-outline-success btn-sm">Ajouter une Série</button>
-			</a>
-
-		</section>
-	{% endblock %}
+						<p class="text-dark">
+							categorie :
+							{% for  categorie in tvshow.catgoriess %}
+								<em class="badge rounded-pill bg-secondary mx-1">{{ categorie.name}}</em>
+							{% endfor %}
+						</p>
+						<p class="text-dark">
+							Personnages :
+							{% for  character in tvshow.characters %}
+								<em class="badge rounded-pill bg-secondary mx-1">{{ character.firstname }}__{{ character.lastname}}
+								</em>
+							{% endfor %}
+						</p>
+					</div>
+					<span class="badge bg-primary rounded-pill m-2">
+						Likes :
+						{{tvshow.nbLikes}}</span>
+				</li>
+			{% endfor %}
+		</ol>
+		<a href="{{ path('admin_tvshow_add') }}">
+			<button type="button" class="btn btn-outline-success btn-sm">Ajouter une Série</button>
+		</a>
+	</section>
+{% endblock %}
