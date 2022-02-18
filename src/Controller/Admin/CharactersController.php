@@ -45,6 +45,13 @@ class CharactersController extends AbstractController
         ]);
     }
 
+    /**
+     * Méthode permettant d'ajouter un personnage
+     *
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return void
+     */
     #[Route('/add', name: 'add')]
     public function addCharacters(Request $request, ManagerRegistry $doctrine)
     {
@@ -60,6 +67,23 @@ class CharactersController extends AbstractController
         }
         return $this->render('admin/characters/add.html.twig', [
             'formView' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function editCharacters(Character $character, Request $request, ManagerRegistry $doctrine)
+    {
+
+        $form = $this->createForm(CharactersType::class, $character);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $doctrine->getManager();
+            $em->flush();
+            $this->addFlash('success', 'Le personnage  ' . $character->getFirstname() . ' ' . $character->getLastname() . ' à bien été mis a jour ');
+            return $this->redirectToRoute('admin_characters_list');
+        }
+        return $this->render('admin/characters/edit.html.twig', [
+            'formEdit' => $form->createView()
         ]);
     }
 }

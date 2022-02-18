@@ -6,7 +6,7 @@
 			<div class="col-lg-6 col-md-8 mx-auto">
 				<h1 class="fw-light">{{character.firstname}}</h1>
 				<p>
-					<a href="#">Editer</a>
+					<a href="{{ path('admin_characters_edit', {id:character.id}) }}">Editer</a>
 					|
 					<a href="#">Supprimer</a>
 
