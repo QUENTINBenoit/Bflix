@@ -69,7 +69,14 @@ class CharactersController extends AbstractController
             'formView' => $form->createView(),
         ]);
     }
-
+    /**
+     * Méthode permettant d'editer un personnage 
+     *
+     * @param Character $character
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return void
+     */
     #[Route('/edit/{id}', name: 'edit')]
     public function editCharacters(Character $character, Request $request, ManagerRegistry $doctrine)
     {
@@ -85,5 +92,21 @@ class CharactersController extends AbstractController
         return $this->render('admin/characters/edit.html.twig', [
             'formEdit' => $form->createView()
         ]);
+    }
+    /**
+     * Methode des supprssion d'un personnage 
+     *
+     * @param Character $character
+     * @param ManagerRegistry $doctrine
+     * @return void
+     */
+    #[Route('/delete/{id}', name: 'delete')]
+    public function deleteCharacters(Character $character, ManagerRegistry $doctrine)
+    {
+        $em = $doctrine->getManager();
+        $em->remove($character);
+        $em->flush();
+        $this->addFlash('success', 'Le personnage ' . $character->getLastname() . ' à bien été supprimé');
+        return $this->redirectToRoute('admin_characters_list');
     }
 }
