@@ -27,6 +27,11 @@
 
 					<td>{{ user.firstname }}</td>
 					<td>{{ user.lastname }}</td>
+					<td>
+						<a href="{{ path('admin_user_edit', {id:user.id}) }}">
+							<button type="button" class="btn btn-outline-info btn-sm">Update</button>
+						</a>
+					</td>
 
 				</tr>
 			{% else %}

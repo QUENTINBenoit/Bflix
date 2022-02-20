@@ -1,0 +1,24 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Update
+{% endblock %}
+
+{% block body %}
+	<h1>Mise a jour des données</h1>
+
+	{{ include('admin/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+	<div class="row">
+		<div class="col-auto me-auto">
+			<a href="{{ path('admin_user_list') }}">
+				<button type="button" class="btn btn-outline-secondary btn-sm">Retour à la list Utilisateurs</button>
+			</a>
+		</div>
+
+		<div class="col-auto">
+			{{ include('admin/user/_delete_form.html.twig') }}
+		</div>
+	</div>
+
+{% endblock %}

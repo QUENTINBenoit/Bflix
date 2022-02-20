@@ -13,15 +13,25 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{ path('home')}}">Accueil</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('tvshow_list')}}">Séries</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Ma liste</a>
-					</li>
+
+
+					{% if app.user %}
+						{% if is_granted('ROLE_USER') %}
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('home')}}">Accueil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('tvshow_list')}}">Séries</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Ma liste</a>
+							</li>
+						{% endif %}
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{ path('home')}}">Accueil</a>
+						</li>
+					{% endif %}
 				</ul>
 				<ul class="navbar-nav me-4 mb-md-0">
 					{% if app.user %}

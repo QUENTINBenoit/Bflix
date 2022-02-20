@@ -73,7 +73,6 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-
     public function showUser(User $user): Response
     {
         // \dd('derail user');
@@ -91,7 +90,6 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-
     public function deleteUser(Request $request, User $user, EntityManagerInterface $doctrine): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
@@ -99,5 +97,35 @@ class UserController extends AbstractController
             $doctrine->flush();
         }
         return $this->redirectToRoute('admin_user_list', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Méthode de mise à jour d'un Utilisateur 
+     *
+     * @param Request $request
+     * @param User $user
+     * @param EntityManagerInterface $doctrine
+     * @param UserPasswordHasherInterface $userPasswordHasherInterface
+     * @return Response
+     */
+    #[Route('/edit/{id}', name: 'edit')]
+    public function editUser(Request $request, User $user,  EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Recuperation du mot de passe 
+            $password = $form->get('password')->getData();
+            // Je hash le mot de passe 
+            $motDePassHacher = $userPasswordHasherInterface->hashPassword($user, $password);
+            // mise à jour de la propriété 'password avec le mnouveau mot de passe
+            $user->setPassword($motDePassHacher);
+            $doctrine->flush();
+            return $this->redirectToRoute('admin_user_list', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('admin/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 }
