@@ -49,7 +49,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Je récupère le mot de passe en clair
-            $plainPassword = $form->get('passwor')->getData();
+            $plainPassword = $form->get('password')->getData();
             // Je hash le mot de passe
             $hashePassword = $userPasswordHasherInterface->hashPassword($user, $plainPassword);
             // Je mets à jour la propriété 'password avec le nouveau mot de pass
@@ -83,7 +83,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Mehode permettant de supprimer un Utlisateur 
+     * Méthode permettant de supprimer un utilisateur 
      *
      * @param Request $request
      * @param User $user
