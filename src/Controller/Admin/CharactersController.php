@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharactersController extends AbstractController
 {
     /**
-     * Méthode affichant la list des personnages
+     * Méthode affichant la liste des personnages
      *
      * @param CharacterRepository $characterRepository
      * @return Response
@@ -31,7 +31,7 @@ class CharactersController extends AbstractController
         ]);
     }
     /**
-     * Méthode affichant le detail des personnages
+     * Méthode affichant le détail des personnages
      *
      * @param Character $character
      * @return Response
@@ -39,7 +39,7 @@ class CharactersController extends AbstractController
     #[Route('/{id}', name: 'show')]
     public function detailsCharacter(Character $character): Response
     {
-        // \dd($character);
+        \dump($character);
         return $this->render('admin/characters/show.html.twig', [
             'character' => $character,
         ]);
@@ -65,12 +65,13 @@ class CharactersController extends AbstractController
             $this->addFlash('success', 'Le personnage ' . $character->getFirstname() . ' a bien été cré');
             return $this->redirectToRoute('admin_characters_list');
         }
+
         return $this->render('admin/characters/add.html.twig', [
             'formView' => $form->createView(),
         ]);
     }
     /**
-     * Méthode permettant d'editer un personnage 
+     * Méthode permettant d'éditer un personnage 
      *
      * @param Character $character
      * @param Request $request
@@ -86,7 +87,7 @@ class CharactersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
-            $this->addFlash('success', 'Le personnage  ' . $character->getFirstname() . ' ' . $character->getLastname() . ' à bien été mis a jour ');
+            $this->addFlash('success', 'Le personnage  ' . $character->getFirstname() . ' ' . $character->getLastname() . ' à bien été mis à jour ');
             return $this->redirectToRoute('admin_characters_list');
         }
         return $this->render('admin/characters/edit.html.twig', [
@@ -94,7 +95,7 @@ class CharactersController extends AbstractController
         ]);
     }
     /**
-     * Methode des supprssion d'un personnage 
+     * Méthode de suppression d'un personnage 
      *
      * @param Character $character
      * @param ManagerRegistry $doctrine

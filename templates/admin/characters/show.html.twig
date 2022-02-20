@@ -18,14 +18,15 @@
 
 	<div class="py-5 bg-light">
 		<div class="container">
-			<p>
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum consequuntur nesciunt, facere obcaecati nam voluptates reiciendis sit quaerat recusandae fugit.
+			<p class="mx-4">{{character.bio}}
 			</p>
 		</div>
 		<div class="container">
-			<p>
-				<a href="{{ path('admin_characters_list') }}">Retour à la list de personnages</a>
-			</p>
+
+			<a href="{{ path('admin_characters_list') }}" class=" mx-4">
+				<button type="button" class="btn btn-outline-success btn-sm">Liste des Personnage</button>
+			</a>
+
 		</div>
 	</div>
 
