@@ -1,10 +1,12 @@
 {% extends 'admin/layout.html.twig' %}
-
 {% block title %}Utilisateur
 {% endblock %}
 
-{% block body %}
-	<h1>User</h1>
+{% block content %}
+	<div class="bg-dark bg-gradient text-white col-3">
+		<h1 class="mx-4">{{user.firstname}}</h1>
+	</div>
+
 
 	<table class="table">
 		<tbody>
