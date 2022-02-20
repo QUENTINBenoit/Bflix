@@ -8,5 +8,7 @@
 
 	{{ include('admin/user/_form.html.twig') }}
 
-	<a href="{{ path('admin_user_list') }}">back to list</a>
+	<a href="{{ path('admin_user_list') }}">
+		<button type="button" class="btn btn-outline-secondary btn-sm">Retour à la list Utilisateurs</button>
+	</a>
 {% endblock %}

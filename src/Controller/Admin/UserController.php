@@ -67,7 +67,7 @@ class UserController extends AbstractController
 
 
     /**
-     * Methode affichant le de detail de chaque utlitlisateurs
+     * Méthode affichant le de détail de chaque utilisateur
      *
      * @param User $user
      * @return Response
@@ -80,5 +80,24 @@ class UserController extends AbstractController
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    /**
+     * Mehode permettant de supprimer un Utlisateur 
+     *
+     * @param Request $request
+     * @param User $user
+     * @param EntityManagerInterface $doctrine
+     * @return Response
+     */
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+
+    public function deleteUser(Request $request, User $user, EntityManagerInterface $doctrine): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $doctrine->remove($user);
+            $doctrine->flush();
+        }
+        return $this->redirectToRoute('admin_user_list', [], Response::HTTP_SEE_OTHER);
     }
 }
