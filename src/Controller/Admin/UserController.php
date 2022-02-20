@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Twig\TokenParser\UseTokenParser;
 
 #[Route('/admin/user', name: 'admin_user_', requirements: ['id' => '\d+'])]
 //#[IsGranted('ROLE_ADMIN')]
@@ -31,6 +32,14 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     *  Méthode permettant d'ajouter un utilisateur  
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $doctrine
+     * @param UserPasswordHasherInterface $userPasswordHasherInterface
+     * @return Response
+     */
     #[Route('/add', name: 'add', methods: ['GET', 'POST'])]
     public function newUser(Request $request, EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
@@ -39,13 +48,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Je recupére le mot de passe en claire
+            // Je récupère le mot de passe en clair
             $plainPassword = $form->get('passwor')->getData();
-            // Je has le mot de passe
+            // Je hash le mot de passe
             $hashePassword = $userPasswordHasherInterface->hashPassword($user, $plainPassword);
-            // Je mets a our la propriété 'password avec le nouveau mot de pass
+            // Je mets à jour la propriété 'password avec le nouveau mot de pass
             $user->setPassword($hashePassword);
-            // savegarde en Bdd
+            // sauvegarde en Bdd
             $doctrine->persist($user);
             $doctrine->flush();
             return $this->redirectToRoute('admin_user_list');
@@ -53,6 +62,23 @@ class UserController extends AbstractController
         return $this->renderForm('admin/user/add.html.twig',  [
             'user' => $user,
             'form' => $form,
+        ]);
+    }
+
+
+    /**
+     * Methode affichant le de detail de chaque utlitlisateurs
+     *
+     * @param User $user
+     * @return Response
+     */
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+
+    public function showUser(User $user): Response
+    {
+        // \dd('derail user');
+        return $this->render('admin/user/show.html.twig', [
+            'user' => $user,
         ]);
     }
 }
