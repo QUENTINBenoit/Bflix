@@ -1,0 +1,27 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}
+	Catégories |
+	{{parent()}}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1>Liste des Catégories</h1>
+		<div class="example-wrapper">
+			<ul>
+				<h3></h3>
+				{% for categories in listCategory %}
+					<div class="p-1">
+						<li>
+							{{ categories.name}}
+						</li>
+					</div>
+				{% endfor %}
+			</ul>
+		</div>
+		<a href="#">
+			<button type="button" class="btn btn-outline-success btn-sm">Nouvelle Categories</button>
+		</a>
+	</div>
+{% endblock %}
