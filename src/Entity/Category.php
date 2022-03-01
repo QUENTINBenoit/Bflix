@@ -25,11 +25,10 @@ class Category implements Stringable
     #[ORM\ManyToMany(targetEntity: Tvshow::class, inversedBy: 'catgoriess')]
     private $tvshows;
 
-    public function __construct($name)
+    public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->tvshows = new ArrayCollection();
-        $this->name = $name;
     }
     public function __toString(): string
     {

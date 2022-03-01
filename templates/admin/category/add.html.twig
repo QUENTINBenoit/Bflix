@@ -1,0 +1,10 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block content %}
+
+	<!-- On desactive la validation HTML5 pour laisser Symfony le faire -->
+	{{ form(formCatego,  {'attr': {'novalidate': 'novalidate'}}) }}
+
+
+	{% endblock %}
