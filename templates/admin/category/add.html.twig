@@ -2,9 +2,11 @@
 
 
 {% block content %}
+	{{ form_start(formCatego, {'attr': {'novalidate': 'novalidate'}})}}
+	{{ form_widget(formCatego)}}
+	{{ form_end(formCatego) }}
+	<a href="{{path('admin_category_list')}}">
+		<button class="btn btn-outline-success btn-sm">{{ button_label|default('Retour') }}</button>
+	</a>
 
-	<!-- On desactive la validation HTML5 pour laisser Symfony le faire -->
-	{{ form(formCatego,  {'attr': {'novalidate': 'novalidate'}}) }}
-
-
-	{% endblock %}
+{% endblock %}

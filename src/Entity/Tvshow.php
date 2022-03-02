@@ -19,7 +19,7 @@ class Tvshow
     private $id;
 
     #[ORM\Column(type: 'string', length: 25)]
-    #[Assert\NotBlank(message: 'Meci de saisir un titre pour la série demandé')]
+    #[Assert\NotBlank(message: 'Merci de saisir un titre pour la série demandée')]
     private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]

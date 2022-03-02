@@ -28,12 +28,12 @@ class CategoryController extends AbstractController
     #[Route('/add', name: 'add')]
     public function categoryAdd(Request $request,  ManagerRegistry $doctrine): Response
     {
-        //\dd("page d'ajout d'une categogie");
-        // creation d'une entité vide 
+        //\dd("page d'ajout d'une catégorie");
+        // création d'une entité vide 
         $category = new Category(Stringable::class);
-        // liason de mon entité Category avec mon formulaire
+        // liaison de mon entité Category avec mon formulaire
         $form = $this->createForm(CategoryType::class, $category);
-        // injection des données via la méthode request issue de mon foramulaire dans l'objet $category
+        // injection des données via la méthode request issue de mon formulaire dans l'objet $category
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
@@ -41,7 +41,7 @@ class CategoryController extends AbstractController
             $em->flush();
 
             // petit message flash 
-            $this->addFlash('info', 'La catègory ' . $category->getName() . ' a bien été enregistré');
+            $this->addFlash('info', 'La catégorie ' . $category->getName() . ' à bien été enregistré');
             return $this->redirectToRoute('admin_category_list');
         }
         return $this->render('admin/category/add.html.twig', [
