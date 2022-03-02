@@ -11,6 +11,7 @@
 			<div class="col-lg-6 col-md-8 mx-auto">
 				<h1 class="fw-light">{{tvshow.title}}</h1>
 				<!--	<img src="#" alt="" height="400">-->
+				<img src="{{Omdb.Poster}}" alt="" height="400">
 				<p class="lead text-muted">
 					<a href="#">
 						{% for season in tvshow.seasons %}
@@ -26,10 +27,13 @@
 					{% endfor %}
 					<br>
 					Categories :
-					<em class="text-danger">
-						{% for category in tvshow.catgoriess %}
-							{{ category.name}}
-						{% endfor %}
+					<em
+						class="text-danger">
+						<!--	{% for category in tvshow.catgoriess %}
+																										{{ category.name}}
+																									{% endfor %}>-->
+						{{Omdb.Genre}}
+
 					</em>
 				</p>
 			</div>

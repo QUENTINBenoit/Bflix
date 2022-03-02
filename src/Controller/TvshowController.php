@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TvshowRepository;
+use App\Service\OmdbApi;
+use App\Service\TestService;
 use Stringable;
 
 #[Route('/tvshow', name: 'tvshow_')]
@@ -20,11 +22,10 @@ class TvshowController extends AbstractController
      * @return Response
      */
     #[Route('/list', name: 'list')]
-    public function list(TvshowRepository $TvshowRepository,): Response
+    public function list(TvshowRepository $TvshowRepository): Response
     {
+
         $tvshwolist = ($TvshowRepository->findAllOrderAlpha());
-
-
         return $this->render('tvshow/list.html.twig', [
             'tvshows' => $tvshwolist,
         ]);
@@ -43,7 +44,7 @@ class TvshowController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $tvShows =  $tvshowRepository->findWithDetails($id);
-        //  \dd($tvShows);
+
 
         if ($tvShows === null) {
             // On affichi une 404
@@ -62,10 +63,15 @@ class TvshowController extends AbstractController
      * @return Response
      */
     #[Route('/details/{slug}', name: 'slugger',)]
-    public function slugger(Tvshow $tvshow): Response
+    public function slugger(Tvshow $tvshow, OmdbApi $omdbApi): Response
     {
+        $infoApi = $tvshow->getTitle();
+        //dd($infoApi);
+        $infoOmdb = $omdbApi->fetch($infoApi);
+        //\dd($infoOmdb);
         return $this->render('tvshow/details.html.twig', [
             'tvshow' => $tvshow,
+            'Omdb' => $infoOmdb,
 
         ]);
     }
