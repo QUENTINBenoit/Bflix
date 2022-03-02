@@ -55,6 +55,9 @@ class Tvshow
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'tvshows',)]
     private $catgoriess;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $poster;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -279,6 +282,18 @@ class Tvshow
         if ($this->catgoriess->removeElement($catgoriess)) {
             $catgoriess->removeTvshow($this);
         }
+
+        return $this;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(?string $poster): self
+    {
+        $this->poster = $poster;
 
         return $this;
     }

@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TvshowRepository;
 use App\Service\OmdbApi;
-use App\Service\TestService;
-use Stringable;
+
+
 
 #[Route('/tvshow', name: 'tvshow_')]
 class TvshowController extends AbstractController
@@ -67,11 +67,11 @@ class TvshowController extends AbstractController
     {
         $infoApi = $tvshow->getTitle();
         //dd($infoApi);
-        $infoOmdb = $omdbApi->fetch($infoApi);
+        // $infoOmdb = $omdbApi->fetch($infoApi);
         //\dd($infoOmdb);
         return $this->render('tvshow/details.html.twig', [
             'tvshow' => $tvshow,
-            'Omdb' => $infoOmdb,
+            // 'Omdb' => $infoOmdb,
 
         ]);
     }
