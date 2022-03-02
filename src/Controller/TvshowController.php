@@ -41,6 +41,7 @@ class TvshowController extends AbstractController
     #[Route('/{id}', name: 'details', requirements: ['id' => '\d+'],)]
     public function details(int $id, TvshowRepository $tvshowRepository, Tvshow $tvshow): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $tvShows =  $tvshowRepository->findWithDetails($id);
         //  \dd($tvShows);
 

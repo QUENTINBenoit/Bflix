@@ -18,6 +18,7 @@ use Twig\TokenParser\UseTokenParser;
 //#[IsGranted('ROLE_ADMIN')]
 class UserController extends AbstractController
 {
+
     /**
      * Méthode affichant tous les utilisateurs
      *
@@ -111,6 +112,8 @@ class UserController extends AbstractController
     #[Route('/edit/{id}', name: 'edit')]
     public function editUser(Request $request, User $user,  EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
+        $this->denyAccessUnlessGranted('USER_EDTI', $user, "Vous n'avez pas les droits pour modifier ce compte");
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
