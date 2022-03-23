@@ -28,7 +28,8 @@ class TvshowType extends AbstractType
             ->add('publishedAt')
             ->add('createdAt')
             ->add('udaptedAt')
-
+            ->add('characters')
+            ->add('catgoriess')
             ->add('save', SubmitType::class, [
                 'label' => 'Valider'
             ])

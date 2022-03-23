@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Tvshow;
 use App\Repository\TvshowRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Stringable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\TvshowType;
 
 
+
 #[Route('/admin/tvshow', name: 'admin_tvshow_', requirements: ['id' => '\d+'])]
 class TvshowController extends AbstractController
 {
-
 
     /**
      * Méthode affichant la liste des séries partie administration 
