@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Tvshow;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,8 +30,8 @@ class TvshowType extends AbstractType
             ->add('publishedAt')
             ->add('createdAt')
             ->add('udaptedAt')
-            ->add('characters')
-            ->add('catgoriess')
+            ->add('characters', \null)
+            ->add('catgoriess', \null)
             ->add('save', SubmitType::class, [
                 'label' => 'Valider'
             ])

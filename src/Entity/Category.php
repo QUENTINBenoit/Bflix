@@ -22,7 +22,7 @@ class Category implements Stringable
     //#[ORM\ManyToMany(targetEntity: Tvshow::class, inversedBy: 'categories')]
     //private $categories;
 
-    #[ORM\ManyToMany(targetEntity: Tvshow::class, inversedBy: 'catgoriess')]
+    #[ORM\ManyToMany(targetEntity: Tvshow::class, mappedBy: 'catgoriess')]
     private $tvshows;
 
     public function __construct()

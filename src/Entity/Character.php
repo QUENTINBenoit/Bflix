@@ -32,7 +32,7 @@ class Character implements Stringable
     #[ORM\Column(type: 'smallint')]
     private $age;
 
-    #[ORM\ManyToMany(targetEntity: Tvshow::class, inversedBy: 'characters')]
+    #[ORM\ManyToMany(targetEntity: Tvshow::class, mappedBy: 'characters')]
     private $charaters;
 
     public function __construct()

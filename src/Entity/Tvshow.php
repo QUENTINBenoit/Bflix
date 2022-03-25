@@ -43,7 +43,7 @@ class Tvshow
     #[ORM\OneToMany(mappedBy: 'seasons', targetEntity: Season::class,)]
     private $seasons;
 
-    #[ORM\ManyToMany(targetEntity: Character::class, mappedBy: 'charaters')]
+    #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'charaters')]
     private $characters;
 
     // #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
@@ -52,7 +52,7 @@ class Tvshow
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $slug;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'tvshows',)]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tvshows',)]
     private $catgoriess;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -68,11 +68,11 @@ class Tvshow
         $this->updatedAt = new DateTime();
         $this->catgoriess = new ArrayCollection();
     }
-    /*
+
     public function __toString(): string
     {
         return $this->title;
-    }*/
+    }
 
     public function getId(): ?int
     {

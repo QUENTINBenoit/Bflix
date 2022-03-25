@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\TvshowType;
-
-
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/admin/tvshow', name: 'admin_tvshow_', requirements: ['id' => '\d+'])]
 class TvshowController extends AbstractController
@@ -41,13 +40,11 @@ class TvshowController extends AbstractController
     #[Route('/{id}',  name: 'show')]
     public function show(Tvshow $tvshow): Response
     {
-        \dump($tvshow);
+
         return $this->render('admin/tvshow/show.html.twig', [
             'tvshow' => $tvshow
         ]);
     }
-
-
     /**
      * Méthode permettant d'ajouter une série 
      *
@@ -81,7 +78,7 @@ class TvshowController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Méthode permettant de supprimer une série  
      *
      * @param Tvshow $tvshow
      * @param ManagerRegistry $doctrine
@@ -90,23 +87,31 @@ class TvshowController extends AbstractController
     #[Route('/delete/{id}', name: 'delete')]
     public function delete(Tvshow $tvshow, ManagerRegistry $doctrine)
     {
+
         $em = $doctrine->getManager();
         $em->remove($tvshow);
         $em->flush();
-        $this->addFlash('success', 'Serire supprimée avec succes');
+        $this->addFlash('success', 'Serie supprimée avec succes');
         return $this->redirectToRoute('admin_tvshow_list');
     }
 
-
-
+    /**
+     * Methode permettant de mettre a joure une serie
+     *
+     * @param Tvshow $tvshow
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return void
+     */
     #[Route('/edit/{id}', name: 'edit')]
-
-    public function edit(Tvshow $tvshow,  Request $request, ManagerRegistry $doctrine)
+    public function edit(Tvshow $tvshow, Request $request, ManagerRegistry $doctrine)
     {
 
         $form = $this->createForm(TvshowType::class, $tvshow);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $doctrine->getManager();
             $em->flush();
             $this->addFlash('success', 'la série ' . $tvshow->getTitle() . ' a bien été mise à jour');
