@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+	<section class="text-center container">
+		<div class="row">
+			<div class="col-lg-6 col-md-8 mx-auto">
+				<h1 class="fw-light">{{character.firstname}}</h1>
+			</div>
+		</div>
+	</section>
+
+	<div class="py-5 bg-light">
+		<div class="container">
+			<p class="mx-4">{{character.bio}}
+			</p>
+		</div>
+		<div class="container">
+
+			<a href="{{ path('tvshow_list')}}" class=" mx-4">
+				<button type="button" class="btn btn-outline-success btn-sm">Retour</button>
+			</a>
+
+		</div>
+	</div>
+
+
+{% endblock %}

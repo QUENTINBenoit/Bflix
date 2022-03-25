@@ -23,7 +23,7 @@
 				<p class="lead text-muted">
 					Avec :
 					{% for personnage in tvshow.characters %}
-						<a href="#">{{ personnage.firstname}}{{ personnage.lastname}}</a>,
+						<a href="{{ path('characters_display', {id:personnage.id}) }}">{{ personnage.firstname}}{{ personnage.lastname}}</a>,
 					{% endfor %}
 					<br>
 					Categories :
