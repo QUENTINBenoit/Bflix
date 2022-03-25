@@ -42,6 +42,7 @@ class CharactersType extends AbstractType
             )
             ->add('bio', \null)
             ->add('age', \null)
+            ->add('image', \null)
             ->add('save', SubmitType::class, [
                 'label' => 'Valider',
                 'attr' => [
