@@ -4,10 +4,17 @@
 	<section class="text-center container">
 		<div class="row">
 			<div class="col-lg-6 col-md-8 mx-auto">
-				<h1 class="fw-light">{{character.firstname}}</h1>
+				<h1 class="fw-light">
+					{{character.firstname}}
+					-
+					{{character.lastname}}
+				</h1>
 			</div>
 		</div>
 	</section>
+	<div class="text-center">
+		<img src="{{ asset('uploads/images/' ~ character.image) }}" class="rounded" width="400" alt="...">
+	</div>
 
 	<div class="py-5 bg-light">
 		<div class="container">

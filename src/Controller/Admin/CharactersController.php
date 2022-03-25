@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ImageUploader;
+
 
 
 #[Route('/admin/characters', name: 'admin_characters_', requirements: ['id' => '\d+'])]
@@ -53,12 +55,17 @@ class CharactersController extends AbstractController
      * @return void
      */
     #[Route('/add', name: 'add')]
-    public function addCharacters(Request $request, ManagerRegistry $doctrine)
+    public function addCharacters(Request $request, ManagerRegistry $doctrine, ImageUploader $imageUploader)
     {
         $character = new Character();
         $form = $this->createForm(CharactersType::class, $character);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Service permettant l'upload d'une image
+            $newFileName = $imageUploader->upload($form, 'image');
+            // On met à jour le chemin vers l'image en BDD
+            $character->setImage($newFileName);
+
             $em = $doctrine->getManager();
             $em->persist($character);
             $em->flush();
@@ -79,12 +86,16 @@ class CharactersController extends AbstractController
      * @return void
      */
     #[Route('/edit/{id}', name: 'edit')]
-    public function editCharacters(Character $character, Request $request, ManagerRegistry $doctrine)
+    public function editCharacters(Character $character, Request $request, ManagerRegistry $doctrine, ImageUploader $imageUploader)
     {
 
         $form = $this->createForm(CharactersType::class, $character);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Service permettant l'upload d'une image
+            $newFileName = $imageUploader->upload($form, 'image');
+            $character->setImage($newFileName);
+
             $em = $doctrine->getManager();
             $em->flush();
             $this->addFlash('success', 'Le personnage  ' . $character->getFirstname() . ' ' . $character->getLastname() . ' à bien été mis à jour ');
