@@ -41,15 +41,7 @@
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								{% if is_granted('ROLE_ADMIN') %}
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_tvshow_list') }}">Série</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_category_list') }} ">Categories</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('admin_characters_list') }}">Personnages</a>
-									</li>
+
 									<li>
 										<a class="dropdown-item" href="{{ path('admin_user_list') }}">Users</a>
 									</li>

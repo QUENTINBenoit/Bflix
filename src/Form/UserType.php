@@ -12,6 +12,11 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\EventListener;
+
+
+
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -20,15 +25,44 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Super Administrateur' => 'ROLE_SUPER_ADMIN',
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Editeur' => 'ROLE_EDITOR',
-                ],
-                'multiple' => true,
-                'expanded' => true
+            // ->add('roles', ChoiceType::class, [
+            //     'choices' => [
+            //         'Super Administrateur' => 'ROLE_SUPER_ADMIN',
+            //         'Administrateur' => 'ROLE_ADMIN',
+            //         'Editeur' => 'ROLE_EDITOR',
+            //     ],
+            //     'multiple' => true,
+            //     'expanded' => true
+            // ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'btn btn-outline-danger btn-sm'
+                ]
             ])
+            ->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function (FormEvent $event) {
+
+                    $form = $event->getForm();
+                    $userData = $event->getData();
+                    //\dd($userData->getRoles());
+
+                    if ($userData->getRoles()[0] == 'ROLE_SUPER_ADMIN') {
+
+                        $form->add('roles', ChoiceType::class, [
+                            'choices' => [
+                                'Super Administrateur' => 'ROLE_SUPER_ADMIN',
+                                'Administrateur' => 'ROLE_ADMIN',
+                                'Editeur' => 'ROLE_EDITOR',
+                            ],
+                            'multiple' => true,
+                            'expanded' => true,
+
+                        ]);
+                    }
+                }
+            )
 
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
@@ -44,10 +78,10 @@ class UserType extends AbstractType
                         // Mode création
                         // Le mot de passe sera obligatoire
                         $required = true;
-                        // $form->add('password', PasswordType::class, [
-                        //     'mapped' => false,
-                        //     'required' => $required
-                        // ]);
+                        $form->add('password', PasswordType::class, [
+                            'mapped' => false,
+                            'required' => $required
+                        ]);
                     } else {
                         // Mode édition
                         // Le mot de passe ne pas sera obligatoire
@@ -57,19 +91,12 @@ class UserType extends AbstractType
                     // On ajoute dynamiquement le champ Password
                     // Qui est obligatoire en création
                     // et optionnel en édition
-                    $form->add('password', PasswordType::class, [
-                        'mapped' => false,
-                        'required' => $required
-                    ]);
+                    //     $form->add('password', PasswordType::class, [
+                    //         'mapped' => false,
+                    //         'required' => $required,
+                    //     ]);
                 }
-
-            )
-            ->add('save', SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-danger btn-sm'
-                ]
-            ]);
+            );
     }
 
 
