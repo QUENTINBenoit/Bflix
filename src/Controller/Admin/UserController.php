@@ -108,8 +108,12 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/edit/{id}', name: 'edit')]
-    public function editUser(Request $request, User $user, EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
-    {
+    public function editUser(
+        Request $request,
+        User $user,
+        EntityManagerInterface $doctrine,
+        UserPasswordHasherInterface $userPasswordHasherInterface
+    ): Response {
         $this->denyAccessUnlessGranted('USER_EDIT', $user, "Vous n'avez pas les droits pour modifier ce compte");
 
         $form = $this->createForm(UserType::class, $user);
