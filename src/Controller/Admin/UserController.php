@@ -75,7 +75,6 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function showUser(User $user): Response
     {
-        // \dd('derail user');
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
         ]);
@@ -109,18 +108,18 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/edit/{id}', name: 'edit')]
-    public function editUser(Request $request, User $user,  EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    public function editUser(Request $request, User $user, EntityManagerInterface $doctrine, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
-        $this->denyAccessUnlessGranted('USER_EDTI', $user, "Vous n'avez pas les droits pour modifier ce compte");
+        $this->denyAccessUnlessGranted('USER_EDIT', $user, "Vous n'avez pas les droits pour modifier ce compte");
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Recuperation du mot de passe 
+            // Recupération du mot de passe 
             $password = $form->get('password')->getData();
             // Je hash le mot de passe 
             $motDePassHacher = $userPasswordHasherInterface->hashPassword($user, $password);
-            // mise à jour de la propriété 'password avec le mnouveau mot de passe
+            // mise à jour de la propriété 'password avec le nouveau mot de passe
             $user->setPassword($motDePassHacher);
             $doctrine->flush();
             return $this->redirectToRoute('admin_user_list', [], Response::HTTP_SEE_OTHER);

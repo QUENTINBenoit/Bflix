@@ -9,30 +9,54 @@ use Symfony\Component\Security\Core\Security;
 
 class UserVoter extends Voter
 {
+    public function __construct(
+        private Security $security
+    ) {
+    }
     protected function supports(string $attribute, $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['POST_EDIT', 'POST_VIEW'])
+        return in_array($attribute, ['USER_EDIT', 'USER_VIEW'])
             && $subject instanceof \App\Entity\User;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
+        // Si j'ai passé le test de la méthode supports, 
+        // on ettérit dans cette méthode voteOnAttribute()
+
+
+        // dd ('On est bein dea la méthode voteOnAttribute)
+
+        // currentUser est l'utilisateur actuellement connecté
+        $currentUser = $token->getUser();
+
         // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
+        if (!$currentUser instanceof UserInterface) {
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
+        $userRoles = $subject->getRoles();
+
         switch ($attribute) {
-            case 'POST_EDIT':
-                if ($user === $subject || $this->security->isGranted('ROLE_SUPER_ADMIN')) {
+            case 'USER_EDIT':
+                // Je vérifie si je suis propiétaite de compte avec $currentUser === $subject
+                // ou si j'ai un role super admin 
+                // $this->security->isGranted('ROLE_SUPER_ADMIN' me retourne 
+                // - Vrai : si personne connecté a role SUPER_ADMIN
+                // - Faux : dans le cas contraire  
+                if ($currentUser === $subject || $this->security->isGranted('ROLE_SUPER_ADMIN')) {
+                    return \true;
+                }
+
+                // Si l'utilisateur  à éfditer est un simle user (ROLE_USER)
+                // un Admin devrair pour l'editer
+
+                if (count($userRoles) === 1 && $userRoles[0] == 'ROLES_USER') {
                     return \true;
                 }
                 break;
-            case 'POST_VIEW':
+
+            case 'USER_VIEW':
                 // logic to determine if the user can VIEW
                 // return true or false
                 break;
