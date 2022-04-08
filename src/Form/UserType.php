@@ -21,6 +21,12 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
+            ->add('save', SubmitType::class, [
+                'label' => 'Valider',
+                'attr' => [
+                    'class' => 'btn btn-outline-danger btn-sm'
+                ]
+            ])
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) {
@@ -40,7 +46,7 @@ class UserType extends AbstractType
 
                         ]);
                     }
-                }
+                },
             )
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
@@ -63,13 +69,7 @@ class UserType extends AbstractType
                         ]);
                     }
                 }
-            )
-            ->add('save', SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'class' => 'btn btn-outline-danger btn-sm'
-                ]
-            ]);
+            );
     }
 
 
