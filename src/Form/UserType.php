@@ -27,6 +27,7 @@ class UserType extends AbstractType
                     'class' => 'btn btn-outline-danger btn-sm'
                 ]
             ])
+
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) {
@@ -57,18 +58,24 @@ class UserType extends AbstractType
                     // - Edition : la saisie du mot de passe sera facultative
                     $userData = $event->getData();
                     $form = $event->getForm();
-                    if ($userData->getId() === null) {
-                        // Mode création
-                        // Le mot de passe sera obligatoire
-                        // J'ajoute dynamiquement le champ Password
-                        // Qui est obligatoire en création
-                        // et optionnel en édition
-                        $form->add('password', PasswordType::class, [
-                            'required' => false,
-                            'mapped' => false,
-                        ]);
-                    }
+
+                    $userData->getId() === \null ? $required = \true : $required = \false;
+                    // if ($userData->getId() === null) {
+                    //     // Mode création
+                    //     // Le mot de passe sera obligatoire
+                    //     // J'ajoute dynamiquement le champ Password
+                    //     // Qui est obligatoire en création
+                    //     // et optionnel en édition
+                    //     $required = true;
+                    // } else {
+                    //     $required = false;
+                    // }
+                    $form->add('password', PasswordType::class, [
+                        'required' => $required,
+                        // 'mapped' => false,
+                    ]);
                 }
+
             );
     }
 

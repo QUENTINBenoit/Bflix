@@ -29,13 +29,15 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Reception du mot de passe 
+            // Réception du mot de passe 
+
             $password = $form->get('password')->getData();
             // Je hash le mot de passe 
             $motDePassHacher = $userPasswordHasher->hashPassword($user, $password);
             // Mise ajour de la  propriété "password avec le nouveau mot de passe
             $user->setPassword($motDePassHacher);
             $doctrine->flush();
+            $this->addFlash('success', 'les données de votre compte ont bien été modifier');
             return $this->redirectToRoute('tvshow_list');
         }
         return $this->renderForm('account/index.html.twig', [

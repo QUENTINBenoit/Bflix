@@ -6,17 +6,17 @@
 {% block body %}
 	<h1>Mon Compte</h1>
 	<pre>
-	{{ dump(app.user.roles) }}
+	{{ dump(app.user) }}
 </pre>
 
 	{{ form_start(formAccount) }}
 	{{ form_row(formAccount.email) }}
 	{{ form_row(formAccount.firstname) }}
 	{{ form_row(formAccount.lastname) }}
+	{{ form_row(formAccount.password) }}
 	{% if app.user.roles[0] != "ROLE_USER" %}
 		{{ form_row(formAccount.roles) }}
 	{% endif %}
-
 	{{ form_row(formAccount.save) }}
 	{{ form_end(formAccount) }}
 {% endblock %}

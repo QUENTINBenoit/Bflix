@@ -48,8 +48,6 @@ class TvshowRepository extends ServiceEntityRepository
     }
     */
 
-
-
     /**
      * Méthode retournant toutes les séries triées par ordre alphabétique
      *
@@ -62,10 +60,6 @@ class TvshowRepository extends ServiceEntityRepository
         $query = $qb->getQuery();              //=> je créer ma requête SQL 
         return $query->execute();              //=> j'exécute et retourne le résultat sous forme d'un tableau d'objets de la classe TvShow
     }
-
-
-
-
 
     /**
      * Méthode permettant de récupérer tous les détails d'une série
@@ -88,7 +82,7 @@ class TvshowRepository extends ServiceEntityRepository
         $qb->leftJoin('tv.catgoriess', 'categories');
         $qb->leftJoin('sais.episodes', 'episodes');
 
-        // demmande de recuperer les infos des autres tables     
+        // demande de récupérer les infos des autres tables     
         $qb->addSelect('sais, personnages, categories, episodes');
         $query = $qb->getQuery();
         return $query->getOneOrNullResult();

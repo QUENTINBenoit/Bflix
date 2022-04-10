@@ -41,7 +41,7 @@ class CharactersController extends AbstractController
     #[Route('/{id}', name: 'show')]
     public function detailsCharacter(Character $character): Response
     {
-        \dump($character);
+
         return $this->render('admin/characters/show.html.twig', [
             'character' => $character,
         ]);
@@ -69,7 +69,7 @@ class CharactersController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($character);
             $em->flush();
-            $this->addFlash('success', 'Le personnage ' . $character->getFirstname() . ' a bien été cré');
+            $this->addFlash('success', 'Le personnage ' . $character->getFirstname() . ' a bien été créé');
             return $this->redirectToRoute('admin_characters_list');
         }
 
