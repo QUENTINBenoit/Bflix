@@ -16,6 +16,9 @@
 
 
 	<body>
+
+		{% set currentPage = app.request.get('_route') %}
+
 		{% include "partials/_nav.html.twig" %}
 		{% include "partials/_flash.html.twig" %}
 
