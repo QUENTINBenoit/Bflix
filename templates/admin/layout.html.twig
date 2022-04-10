@@ -8,12 +8,11 @@
 		<div class="row">
 			<aside class=" col-2">
 				<h2>Dashbord</h2>
-				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action active" aria-current="true">Accueil</a>
-					<a href="{{ path('admin_tvshow_list') }}" class="list-group-item list-group-item-action">Séries</a>
-					<a href="{{ path('admin_category_list') }} " class="list-group-item list-group-item-action">Categories</a>
-					<a href="{{ path('admin_characters_list') }}" class="list-group-item list-group-item-action">Personnages</a>
-
+				<div class="list-group list-group-flush ">
+					<a href="{{ path('admin_user_list') }} " class="list-group-item list-group-item-action list-group-item-info rounded-pill {{ currentPage == 'admin_user_list' ? 'active'}} " aria-current=" true">Users</a>
+					<a href="{{ path('admin_tvshow_list') }}" class="list-group-item list-group-item-action list-group-item-info rounded-pill {{ currentPage == 'admin_tvshow_list' ? 'active'}} ">Séries</a>
+					<a href="{{ path('admin_category_list') }} " class="list-group-item list-group-item-action list-group-item-info rounded-pill {{ currentPage == 'admin_category_list' ? 'active'}} ">Categories</a>
+					<a href="{{ path('admin_characters_list') }}" class="list-group-item list-group-item-action list-group-item-info rounded-pill {{ currentPage == 'admin_characters_list' ? 'active'}} ">Personnages</a>
 				</div>
 			</aside>
 			<main class="col-10 p-5 ">

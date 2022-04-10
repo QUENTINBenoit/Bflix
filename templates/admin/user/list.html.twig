@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-	<h1>List des utilisateurs</h1>
+	<h1>Liste des utilisateurs</h1>
 
 	<table class="table">
 		<thead>
@@ -28,7 +28,7 @@
 					<td>{{ user.lastname }}</td>
 					<td>
 						<a href="{{ path('admin_user_show', {id:user.id}) }}">
-							<button type="button" class="btn btn-outline-info btn-sm">Info</button>
+							<button type="button" class="btn btn-outline-info btn-sm rounded-pill">Info</button>
 						</a>
 					</td>
 
@@ -41,7 +41,7 @@
 		</tbody>
 	</table>
 	<a href="{{ path('admin_user_add') }}">
-		<button type="button" class="btn btn-outline-secondary btn-sm">Nouvel Utilisateurs</button>
+		<button type="button" class="btn btn-outline-secondary btn-sm rounded-pill">Nouvel Utilisateurs</button>
 	</a>
 
 {% endblock %}
