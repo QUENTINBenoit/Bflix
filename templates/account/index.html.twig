@@ -4,16 +4,32 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Mon Compte</h1>
 
-	{{ form_start(formAccount) }}
-	{{ form_row(formAccount.email) }}
-	{{ form_row(formAccount.firstname) }}
-	{{ form_row(formAccount.lastname) }}
-	{{ form_row(formAccount.password) }}
-	{% if app.user.roles[0] != "ROLE_USER" %}
-		{{ form_row(formAccount.roles) }}
-	{% endif %}
-	{{ form_row(formAccount.save) }}
-	{{ form_end(formAccount) }}
+	<h1>Mon Compte</h1>
+	<form class="row  g-3">
+		{{ form_start(formAccount, {'attr': {'novalidate': 'novalidate'}}) }}
+		<div class="col-md-6">
+			{{ form_row(formAccount.email) }}
+		</div>
+		<div class="col-md-6 ">
+			{{ form_row(formAccount.password) }}
+		</div>
+
+		<div class="col-6">
+			{{ form_row(formAccount.firstname) }}
+		</div>
+
+		<div class="col-6">
+			{{ form_row(formAccount.lastname) }}
+		</div>
+		<div class="col-12">
+			{% if app.user.roles[0] != "ROLE_USER" %}
+				{{ form_row(formAccount.roles) }}
+			{% endif %}
+		</div>
+
+
+		{{ form_row(formAccount.save) }}
+		{{ form_end(formAccount) }}
+	</form>
 {% endblock %}

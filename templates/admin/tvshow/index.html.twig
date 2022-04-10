@@ -5,8 +5,8 @@
 
 {% block content %}
 
-	<section class="py-5 text-center container">
-		<div class="row py-lg-5">
+	<section class="py-1 text-center container">
+		<div class="row py-lg-2">
 			<div class="col-lg-6 col-md-8 mx-auto">
 				<h1 class="fw-light">Administration des séries
 				</h1>
@@ -35,7 +35,9 @@
 								</em>
 							{% endfor %}
 						</p>
+
 					</div>
+					<img src="{{tvshow.poster}}" class="rounded-pill me-3 " alt="" height="100">
 					<span class="badge bg-primary rounded-pill m-2">
 						Likes :
 						{{tvshow.nbLikes}}</span>

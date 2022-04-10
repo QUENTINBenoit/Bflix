@@ -8,7 +8,7 @@
 				</svg>
 				<strong>B'flix</strong>
 			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -16,13 +16,14 @@
 					{% if app.user %}
 						{% if is_granted('ROLE_USER') %}
 							<li class="nav-item">
-								<a class="nav-link {{ currentPage =='home' ? 'active' }}" aria-current="page" href="{{ path('home')}}">Accueil</a>
+								<a class="nav-link   {{ currentPage =='home' ? 'active  border-2 border-bottom border-danger rounded-pill' }}" aria-current="page" href="{{ path('home')}}">Accueil</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {{ currentPage =='tvshow_list' ? 'active' }}" href="{{ path('tvshow_list')}}">Séries</a>
+								<a class="nav-link   {{ currentPage =='tvshow_list' ? 'active  border-2 border-bottom border-danger rounded-pill' }}" href="{{ path('tvshow_list')}}">Séries
+								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link {{ currentPage =='account_user' ? 'active' }}" href="{{ path('account_user', {id:app.user.id} )}}">Mon Compte</a>
+								<a class="nav-link  {{ currentPage =='account_user' ? 'active    border-2 border-bottom border-danger rounded-pill' }}" href="{{ path('account_user', {id:app.user.id} )}}">Mon Compte</a>
 							</li>
 						{% endif %}
 					{% else %}
@@ -37,11 +38,10 @@
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								{{app.user.firstname}}
 							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu " aria-labelledby="navbarDropdown">
 								{% if is_granted('ROLE_ADMIN') %}
-
 									<li>
-										<a class="dropdown-item" href="{{ path('admin_user_list') }}">Dashboard</a>
+										<a class="dropdown-item " href="{{ path('admin_user_list') }}">Dashboard</a>
 									</li>
 									<li><hr class="dropdown-divider"></li>
 								{% endif %}
@@ -59,8 +59,8 @@
 				</ul>
 				{% if app.user %}
 					<form class="d-flex m" action="{{ path('search') }}">
-						<input class="form-control me-2" name="q" type="search" placeholder="Ex : The mandalorian" aria-label="Search">
-						<button class="btn btn-outline-secondary" type="submit">GO</button>
+						<input class="form-control me-2 border-danger" name="q" type="search" placeholder="Ex : The mandalorian" aria-label="Search">
+						<button class="btn btn-outline-danger" type="submit">GO</button>
 					</form>
 				{% endif %}
 

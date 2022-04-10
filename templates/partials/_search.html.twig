@@ -1,5 +1,5 @@
 <section class="py-5 text-center container ">
-	<div class="row py-lg-5  bg-dark rounded shadow-lg">
+	<div class="row py-lg-5  bg-dark  border-4  border-bottom border-danger rounded-pill shadow-lg">
 		<div class="col-lg-6 col-md-8 mx-auto">
 			<h1 class="fw-light text-light">Séries
 			</h1>
@@ -9,12 +9,12 @@
 
 <div class="py-5 bg-dark rounded shadow-lg">
 	<div class="container">
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3 ">
 			{% for tvshow in tvshows %}
-				<div class="col">
+				<div class="col ">
 					<a href="{{ path('tvshow_details', {id:tvshow.id}) }}">
-						<div class="card " style="width: 10rem;">
-							<img src={{tvshow.poster}} class="card-img-top rounded " alt="image">
+						<div class="card border-0" style="width: 10rem;">
+							<img src={{tvshow.poster}} class="card-img-top " alt="image">
 						</div>
 					</a>
 				</div>
