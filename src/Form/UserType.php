@@ -20,14 +20,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'border border-danger'
-                ],
                 'label' => 'e-mail',
                 'constraints' => new NotBlank([
                     'message' => 'Veuillez entrer un e-mail',
                 ])
-
             ])
             ->add('firstname')
             ->add('lastname')
@@ -37,7 +33,6 @@ class UserType extends AbstractType
                     'class' => 'btn btn-outline-danger btn-sm rounded-pill'
                 ]
             ])
-
             ->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) {
@@ -54,7 +49,6 @@ class UserType extends AbstractType
                             ],
                             'multiple' => true,
                             'expanded' => true,
-
                         ]);
                     }
                 },
