@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season implements Stringable
@@ -14,9 +15,11 @@ class Season implements Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('groupsTvshows')]
     private $id;
 
     #[ORM\Column(type: 'smallint')]
+    #[Groups('groupsTvshows')]
     private $seasonNumber;
 
     #[ORM\Column(type: 'datetime')]

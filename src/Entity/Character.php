@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
@@ -15,27 +16,35 @@ class Character implements Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('groupsTvshows')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups('groupsTvshows')]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Groups('groupsTvshows')]
     private $lastname;
 
     #[ORM\Column(type: 'string', length: 25)]
+    #[Groups('groupsTvshows')]
     private $gender;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups('groupsTvshows')]
     private $bio;
 
     #[ORM\Column(type: 'smallint')]
+    #[Groups('groupsTvshows')]
     private $age;
 
     #[ORM\ManyToMany(targetEntity: Tvshow::class, mappedBy: 'characters')]
+
     private $charaters;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+
     private $image;
 
     public function __construct()

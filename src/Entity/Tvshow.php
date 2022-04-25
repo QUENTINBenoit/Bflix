@@ -7,7 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Stringable;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TvshowRepository::class)]
@@ -16,19 +16,24 @@ class Tvshow
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('groupsTvshows')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 25)]
     #[Assert\NotBlank(message: 'Merci de saisir un titre pour la série demandée')]
+    #[Groups('groupsTvshows')]
     private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups('groupsTvshows')]
     private $synopsis;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('groupsTvshows')]
     private $image;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups('groupsTvshows')]
     private $nbLikes;
 
     #[ORM\Column(type: 'datetime')]
@@ -41,21 +46,23 @@ class Tvshow
     private $udaptedAt;
 
     #[ORM\OneToMany(mappedBy: 'seasons', targetEntity: Season::class,)]
+    #[Groups('groupsTvshows')]
     private $seasons;
 
     #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'charaters')]
+    #[Groups('groupsTvshows')]
     private $characters;
 
-    // #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'categories')]
-    //private $categories;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('groupsTvshows')]
     private $slug;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tvshows',)]
+    #[Groups('groupsTvshows')]
     private $catgoriess;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('groupsTvshows')]
     private $poster;
 
     public function __construct()
@@ -223,20 +230,20 @@ class Tvshow
     /**
      * @return Collection|Category[]
      */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
+    // public function getCategories(): Collection
+    // {
+    //     return $this->categories;
+    // }
 
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addCategory($this);
-        }
+    // public function addCategory(Category $category): self
+    // {
+    //     if (!$this->categories->contains($category)) {
+    //         $this->categories[] = $category;
+    //         $category->addCategory($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function removeCategory(Category $category): self
     {
