@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category implements Stringable
@@ -15,15 +16,14 @@ class Category implements Stringable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups('groupsTvshows')]
+    #[Groups('groupsCategories')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
-    #[Groups('groupsTvshows')]
+    #[Assert\NotBlank(message: 'Merci de saisir le nom de la catégorie')]
+    #[Groups('groupsCategories')]
     private $name;
 
-    //#[ORM\ManyToMany(targetEntity: Tvshow::class, inversedBy: 'categories')]
-    //private $categories;
 
     #[ORM\ManyToMany(targetEntity: Tvshow::class, mappedBy: 'catgoriess')]
     private $tvshows;
@@ -53,14 +53,6 @@ class Category implements Stringable
         $this->name = $name;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Tvshow[]
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
     }
 
     public function addCategory(Tvshow $category): self
