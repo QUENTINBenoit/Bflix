@@ -86,4 +86,11 @@ class CategoryController extends AbstractController
             );
         }
     }
+
+
+    #[Route("/{id}", name: 'update', methods: ['PUT|PATCH'])]
+    public function update(Category $category, Request $request)
+    {
+        $jsonData = $request->getContent();
+    }
 }
